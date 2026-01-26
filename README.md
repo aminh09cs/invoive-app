@@ -3,7 +3,7 @@
 
 # Microservices System
 
-### Overall
+### Architecture Diagram
 ```mermaid
 graph TB
     Client[Client Applications]
@@ -96,7 +96,7 @@ graph TB
     style Grafana fill:#e8f5e9
 ```
 
-### Overall Flow 
+### Sequence Diagram
 ```mermaid
 sequenceDiagram
     autonumber
