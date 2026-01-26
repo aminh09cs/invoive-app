@@ -1,11 +1,14 @@
 # InvoiveApp
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+# Microservices System
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/nest?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+Tài liệu này mô tả cấu trúc tổng thể của hệ thống, bao gồm các lớp dịch vụ, cơ sở dữ liệu và hệ thống giám sát.
+This document is detailed overall system
 
+## 📊 Sơ đồ Kiến trúc (System Architecture)
+
+```mermaid
 graph TB
     subgraph Client_Applications [Client Applications]
         Client[Web/Mobile Apps]
@@ -42,21 +45,25 @@ graph TB
     end
 
     subgraph Observability_Stack [Observability Stack]
+        Promtail[Promtail] --> Loki[Loki]
         Tempo[Tempo]
-        Loki[Loki]
         Prom[Prometheus]
-        Grafana[Grafana]
+        Loki --> Grafana[Grafana]
+        Tempo --> Grafana
+        Prom --> Grafana
     end
 
-    %% Flow
+    %% Flow Connections
     Client --> BFF
-    BFF --> Microservices_Layer
+    BFF --> AuthS & UserS & ProdS & InvS
     BFF --> RD
     
-    Microservices_Layer --> Keycloak
-    Microservices_Layer --> Data_Layer
-    Microservices_Layer --> Kafka
+    AuthS & UserS & ProdS & InvS --> Keycloak
+    AuthS & UserS & ProdS & InvS --> PG & MG
+    AuthS & UserS & ProdS & InvS --> Kafka
     
-    %% Observability Flow
-    Microservices_Layer -.-> Tempo & Loki & Prom
-    Tempo & Loki & Prom --> Grafana
+    InvS --> PDFS & MedS & MailS
+    
+    %% Monitoring connections
+    BFF -.-> Tempo
+    Kafka -.-> Tempo
