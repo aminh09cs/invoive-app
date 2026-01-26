@@ -3,6 +3,7 @@
 
 # Microservices System
 
+```mermaid
 sequenceDiagram
     autonumber
     participant Client as Web/Mobile Apps
@@ -42,6 +43,7 @@ sequenceDiagram
 
     Core-->>-BFF: Return Business Result
     BFF-->>-Client: Final API Response
+```
 
     Note over Obs: Asynchronous Monitoring & Logging
     Core-)+Obs: Push Logs (Loki) & Traces (Tempo)
