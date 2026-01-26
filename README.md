@@ -3,11 +3,6 @@
 
 # Microservices System
 
-Tài liệu này mô tả cấu trúc tổng thể của hệ thống, bao gồm các lớp dịch vụ, cơ sở dữ liệu và hệ thống giám sát.
-This document is detailed overall system
-
-## 📊 Sơ đồ Kiến trúc (System Architecture)
-
 sequenceDiagram
     autonumber
     participant Client as Web/Mobile Apps
@@ -51,4 +46,3 @@ sequenceDiagram
     Note over Obs: Asynchronous Monitoring & Logging
     Core-)+Obs: Push Logs (Loki) & Traces (Tempo)
     Kafka-)+Obs: Export Telemetry Data
-
